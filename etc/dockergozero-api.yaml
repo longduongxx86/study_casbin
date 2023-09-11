@@ -1,0 +1,16 @@
+Rest:
+  Name: docker_gozero-api
+  Host: 0.0.0.0
+  Port: 8888
+SqlDB:
+  SQL_USER: root
+  SQL_PASSWORD: Nguyenthuyngan00
+  SQL_PORT: 127.0.0.1:3306
+  SQL_DBNAME: accounts
+Rdb:
+  RDB_HOST: redisdb:6379
+  RDB_PASS:
+  RDB_TYPE: node
+Auth:
+  AccessSecret: xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  AccessExpire: 604800

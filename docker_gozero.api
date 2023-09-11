@@ -1,0 +1,48 @@
+type Request {
+	Name string `path:"name,options=you|me"`
+}
+
+type Response {
+	Message string `json:"message"`
+}
+
+type UserLogin {
+	Username string `db:"username" json:"username"`
+	Password string `db:"password" json:"password"`
+}
+
+type UserIden {
+	Id     int    `json:"id" db:"id"`
+	RoleID string `json:"role_id" db:"role_id"`
+}
+
+type UserInfo {
+	Username string `json:"username" db:"username"`
+	Email    string `json:"email" db:"email"`
+	RoleId   string `json:"role_id" db:"role_id"`
+}
+
+type UpdateUser {
+	Username string `json:"username" db:"username"`
+	Email    string `json:"email" db:"email"`
+}
+
+service docker_gozero-api {
+	@handler LoginHandler
+	post /auth(UserLogin) returns (Response)
+}
+
+@server(
+	jwt:  Auth
+	middleware: UserTokenMiddleware
+)
+service docker_gozero-api {
+	@handler GetHandler
+	get /user/get returns (UserInfo)
+
+	@handler UpdateHandler
+	post /user/update(UpdateUser) returns (Response)
+
+	@handler DeleteHandler
+	delete /user/delete/:id returns (Response)
+}

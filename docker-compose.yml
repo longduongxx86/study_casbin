@@ -1,0 +1,32 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8888:8888
+    working_dir: /app
+    depends_on: 
+      - redis
+      - mysql
+  mysql:
+    image: mysql:latest
+    container_name: mysqldb
+    ports:
+      - 3307:3307
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: accounts
+      MYSQL_USER: longdb
+      MYSQL_PASSWORD: longdb
+
+  redis:
+    image: redis:latest
+    container_name: redisdb
+    ports:
+      - 6379:6379
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 1s
+      timeout: 2s
+      retries: 10
